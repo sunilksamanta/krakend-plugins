@@ -1,0 +1,34 @@
+{
+    "$schema": "https://www.krakend.io/schema/v2.5/krakend.json",
+    "version": 3,
+    "timeout": "3s",
+    "plugin": {
+      "pattern": ".so",
+      "folder": "./plugins/"
+    },
+    "endpoints": [
+      {
+        "endpoint": "/wines/reds",
+        "method": "GET",
+        "output_encoding": "no-op",
+        "backend": [
+          {
+            "host": [
+              "https://api.sampleapis.com"
+            ],
+            "method": "GET",
+            "url_pattern": "/wines/reds"
+          }
+        ]
+      }
+    ],
+    "extra_config": {
+      "plugin/http-server": {
+        "name": ["request-interceptor"],
+        "request-interceptor": {
+          "path": "/wines/reds"
+        }
+      }
+    }
+  }
+  
