@@ -15,7 +15,7 @@ for DIR in */ ; do
         cd "$DIR"
         # Build the plugin, naming the output file based on the directory name
         # if host is arm64
-        if [ "$(uname -m)" == "arm64" ]; then
+        if [ "$(uname -m)" = "arm64" ]; then
             docker run -it -v "$PWD:/app" -w /app -e "CGO_ENABLED=1" -e "CC=aarch64-linux-musl-gcc" -e "GOARCH=arm64" -e "GOHOSTARCH=amd64" krakend/builder:2.7.0 go build -buildmode=plugin -o "${DIR%/}.so" .
         else
             docker run -it -v "$PWD:/app" -w /app krakend/builder:2.7.0 go build -buildmode=plugin -o "${DIR%/}.so" .
